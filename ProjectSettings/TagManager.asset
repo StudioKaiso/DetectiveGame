@@ -3,12 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Clue
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Lens
   - Water
   - UI
   - 
