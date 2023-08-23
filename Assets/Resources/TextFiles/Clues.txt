@@ -1,0 +1,22 @@
+LISTE D'INDICES
+-------------------------------------------------
+COMMENT RAJOUTER DES INDICES?
+-------------------------------------------------
+
+Pour rajouter un indice, copiez collez l'exemple de l'indice 1. Remplacez le corps de l'indice ("Voici votre premier indice") par le titre de l'indice en question. Cela peut représenter un court résumé de l'indice. Ensuite la partie concernant la ligne "Info supplémentaire" peut être remplacée par les informations supplémentaires de l'indice.
+
+N'oubliez pas de changer le numéro de l'indice et d'enlever "(Exemple)". C'est juste à titre indicatif, mais cela permet de garder une bonne organisation de ce fichier texte.
+
+-------------------------------------------------
+
+0.) Tutoriel
+- Munissez-vous de votre loupe et trouvez les indices sur la carte!
+    > Faites glisser votre loupe sur l'écran afin de trouver d'autres indices comme celui-ci! Appuyez sur les indices que vous découvrez pour obtenir des infos supplémentaires!
+
+-------------------------------------------------
+
+1.) Indice 1 (Exemple)
+- Voici votre premier indice
+    > Info supplémentaire
+
+-------------------------------------------------

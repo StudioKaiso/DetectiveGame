@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Clue : MonoBehaviour {
+    //Initialize Variables
+    [SerializeField] private string clueName;
+    [SerializeField] private string clueMessage;
+
     //Initialize Components
     private RectTransform rect;
+
+    [Header("Other Clues")]
     [SerializeField] private List<RectTransform> clues;
 
     //Initialize Events
@@ -14,15 +20,27 @@ public class Clue : MonoBehaviour {
         onPlaced = null;
     }
 
-    private void Start() {
+    private void Awake() {
         rect = GetComponent<RectTransform>();
 
-        foreach (GameObject clue in GameObject.FindGameObjectsWithTag("Clue")) {
-            clues.Add(clue.GetComponentInParent<RectTransform>());
-        }
-
         //Subscribe to Events
-        ClueManager.onPlaceCluesDown += (map) => StartCoroutine(PlaceClue(map)); 
+        ClueManager.onCreateClue += (createdClue, id, name, message) => {
+            if (createdClue == this) {
+                gameObject.name = $"Clue {id}";
+                clueName = name;
+                clueMessage = message;
+            }
+        };
+
+        ClueManager.onPlaceCluesDown += (map, clueList) => {
+            clues.Clear();
+
+            foreach (Clue clue in clueList) {
+                clues.Add(clue.GetComponent<RectTransform>());
+            }
+
+            if (clues.Count == clueList.Count) { StartCoroutine(PlaceClue(map)); }
+        };
         
     }
 
@@ -34,6 +52,7 @@ public class Clue : MonoBehaviour {
         int goodPositions = 0;
 
         if (clues[0] == rect) { 
+            clues.Remove(clues[0]);
             if (onPlaced != null) { onPlaced(); }
             yield break; 
         }
