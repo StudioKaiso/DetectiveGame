@@ -26,6 +26,7 @@ public class ClueManager : MonoBehaviour {
     public static event GenerateClue onCreateClue;
 
     private void OnDisable() {
+        onFinishLoading = null;
         onGameStart = null;
         onPlaceCluesDown = null;
         onCreateClue = null;
