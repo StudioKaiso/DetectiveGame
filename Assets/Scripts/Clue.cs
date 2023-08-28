@@ -1,27 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Clue : MonoBehaviour {
     //Initialize Variables
+    [Header("Variables")]
     [SerializeField] private string clueName;
     [SerializeField] private string clueMessage;
+    public bool hasBeenFound;
 
     //Initialize Components
     private RectTransform rect;
+    private Image clueImage;
 
-    [Header("Other Clues")]
-    [SerializeField] private List<RectTransform> clues;
+    [Header("Clue Components")] 
+    [SerializeField] private GameObject foundClue;
+    [SerializeField] private Sprite notFoundSprite, foundSprite;
 
     //Initialize Events
     public static event System.Action onPlaced;
 
+    public delegate void FindClueAction(FoundClue target, string clueName, string clueMessage);
+    public static event FindClueAction onClueFound;
+
     private void OnDisable() {
         onPlaced = null;
+        onClueFound = null;
     }
 
     private void Awake() {
         rect = GetComponent<RectTransform>();
+        clueImage = GetComponent<Image>();
+        GetComponent<Collider2D>().enabled = false;
+
+        clueImage.sprite = notFoundSprite;
 
         //Subscribe to Events
         ClueManager.onCreateClue += (createdClue, id, name, message) => {
@@ -32,52 +46,38 @@ public class Clue : MonoBehaviour {
             }
         };
 
-        ClueManager.onPlaceCluesDown += (map, clueList) => {
-            clues.Clear();
-
-            foreach (Clue clue in clueList) {
-                clues.Add(clue.GetComponent<RectTransform>());
+        ClueManager.onPlaceCluesDown += (points, clueList, messages) => {
+            for(int i = 0; i < clueList.Count; i++) {
+                if (clueList[i] == this) {
+                    rect.anchoredPosition = points[i].anchoredPosition;
+                    Invoke("FinishPlacing", 0.05f);
+                }
             }
-
-            if (clues.Count == clueList.Count) { StartCoroutine(PlaceClue(map)); }
         };
-        
+
+        ClueManager.onGameStart += () => { GetComponent<Collider2D>().enabled = true; };
     }
 
-    private void Update() {
-        
-    }
-
-    private IEnumerator PlaceClue(RectTransform map, float minDistance = 350.0f, int margin = 100) {
-        int goodPositions = 0;
-
-        if (clues[0] == rect) { 
-            clues.Remove(clues[0]);
-            if (onPlaced != null) { onPlaced(); }
-            yield break; 
-        }
-
-        for (int i = 0; i < clues.Count; i++) {
-            if (clues[i] == rect) { clues.Remove(clues[i]); }
-        }
-
-        while (goodPositions < clues.Count) {
-            for (int i = 0; i < clues.Count; i++) {
-                if (Vector2.Distance(clues[i].anchoredPosition, rect.anchoredPosition) < minDistance) {
-                    rect.anchoredPosition = new Vector2(
-                        Random.Range(-(map.sizeDelta.x / 2) + margin, (map.sizeDelta.x / 2) - margin),
-                        Random.Range(-(map.sizeDelta.y / 2) + margin, (map.sizeDelta.y / 2) - margin)
-                    );
-                }   
-            }
-
-            for (int i = 0; i < clues.Count; i++) {
-                if (Vector2.Distance(clues[i].anchoredPosition, rect.anchoredPosition) > minDistance) { 
-                    goodPositions ++;
-                } else { goodPositions = 0; }
-            } yield return null;
-        }
-
+    private void FinishPlacing() {
         if (onPlaced != null) { onPlaced(); }
+    }
+
+    private void DiscoverClue() {
+        hasBeenFound = true;
+
+        GameObject foundClueObject = Instantiate(foundClue, GameObject.FindGameObjectWithTag("Map").transform);
+        foundClueObject.GetComponent<RectTransform>().anchoredPosition = rect.anchoredPosition;
+        foundClueObject.transform.SetAsFirstSibling();
+        foundClueObject.name = $"Found {gameObject.name}";
+
+        if (onClueFound != null) {
+            onClueFound(foundClueObject.GetComponent<FoundClue>(), clueName, clueMessage);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "Lens") { 
+            if (!hasBeenFound) { DiscoverClue(); }
+        }
     }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Clue
   - Map
+  - Lens
   layers:
   - Default
   - TransparentFX

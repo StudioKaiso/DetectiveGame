@@ -9,13 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8202868299952657039}
-  - component: {fileID: 584623219532561650}
+  - component: {fileID: 3451906265798396120}
   - component: {fileID: 7444364251262476276}
   - component: {fileID: 6062270200703877559}
-  - component: {fileID: 5985705054323748523}
-  - component: {fileID: 2948171949644562346}
   m_Layer: 3
-  m_Name: Clue
+  m_Name: FoundClue
   m_TagString: Clue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +39,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &584623219532561650
+--- !u!114 &3451906265798396120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,16 +48,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2338093007289315925}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b037a75cf9a8f14b9dedd73bb9fbbc6, type: 3}
+  m_Script: {fileID: 11500000, guid: af5cf671c08cb3a4f8ddd22a84cf6970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueName: 
-  clueMessage: 
-  hasBeenFound: 0
-  foundClue: {fileID: 2338093007289315925, guid: 60ae7c746a7a4eb4f94a7ae74bec834f, type: 3}
-  notFoundSprite: {fileID: 21300000, guid: 8e103d35bf0a1b94b9373392bc3d5baa, type: 3}
-  foundSprite: {fileID: 21300000, guid: c166a2dd8542d224290c2282d3057ca5, type: 3}
-  clues: []
+  foundName: 
+  foundMessage: 
 --- !u!222 &7444364251262476276
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -98,65 +91,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!50 &5985705054323748523
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2338093007289315925}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
---- !u!58 &2948171949644562346
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2338093007289315925}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 50
