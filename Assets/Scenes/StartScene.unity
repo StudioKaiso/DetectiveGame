@@ -511,7 +511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673533e6b8fbc4642a8daa482e2d11f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 547050713}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,7 +793,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Jeu d'Enq\xEAte"
+  m_text: "Jeu d'Enqu\xEAte"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

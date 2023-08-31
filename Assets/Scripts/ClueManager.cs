@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClueManager : MonoBehaviour {
     //Initialize Variables
-    private int goodPositions;
+    private int goodPositions, clickedClues;
 
     [Header("Clues")]
     [SerializeField] private GameObject clueRef;
@@ -22,6 +22,9 @@ public class ClueManager : MonoBehaviour {
     public static event System.Action onFinishLoading;
 
     public static event System.Action onGameStart;
+
+    public static event System.Action onFindAllClues;
+    public static event System.Action onNextPhase;
 
     public delegate void PlaceClueAction(List<RectTransform> points, List<Clue> clueList, List<ClueMessage> messages);
     public static event PlaceClueAction onPlaceCluesDown;
@@ -53,13 +56,21 @@ public class ClueManager : MonoBehaviour {
             goodPositions ++;
 
             if (goodPositions >= clues.Count) {
-                Debug.Log("Loading Complete!");
                 if (onFinishLoading != null) onFinishLoading();
+            }
+        };
+
+        ClueMessage.onClickMessage += () => {
+            clickedClues ++;
+            Debug.Log(clickedClues);
+
+            if (clickedClues >= clues.Count) {
+                if (onFindAllClues != null) { onFindAllClues(); }
             }
         };
     }
 
-    private void StartGame() { if (onGameStart != null) onGameStart(); Debug.Log("GameStart!"); }
+    private void StartGame() { if (onGameStart != null) onGameStart(); }
 
     private void LoadClues() {
         int addedClues = 0;
@@ -104,5 +115,9 @@ public class ClueManager : MonoBehaviour {
         if (addedClues >= nameList.Count) {
             if (onPlaceCluesDown != null) { onPlaceCluesDown(points, clues, messages); }    
         }
+    }
+    
+    public void GoToNextPhase() {
+        if (onNextPhase != null) { onNextPhase(); }
     }
 }

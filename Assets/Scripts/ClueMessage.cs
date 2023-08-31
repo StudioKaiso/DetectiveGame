@@ -9,7 +9,7 @@ using System;
 public class ClueMessage : MonoBehaviour, IPointerClickHandler {
     //Initialize Variables
     [SerializeField] private float lineHeight, boxHeight;
-    [SerializeField] private float margin;
+    [field:SerializeField] public float margin { get; private set; }
     private int nameLines, bodyLines;
     private float currentSize, size, minSize, maxSize;
     private bool hasExpanded, canExpand;
@@ -17,9 +17,16 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
     private List<ClueMessage> messages;
 
     //Initialize Components
-    private RectTransform rect;
+    public RectTransform rect { get; private set; }
     private TextMeshProUGUI messageText;
     private Image notification;
+
+    //Initialize Events
+    public static event System.Action onClickMessage;
+
+    private void OnDisable() {
+        onClickMessage = null;
+    }
 
     private void Awake() {
         rect = GetComponent<RectTransform>();
@@ -54,7 +61,10 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
         FoundClue.onClickClue += (clueName, clueMessage) => {
             if (messageText.text == $"<b>{clueName}</b>\n\n{clueMessage}") {
                 hasExpanded = true; size = maxSize;
-                notification.gameObject.SetActive(false);
+               if (notification.gameObject.activeSelf) {
+                    if (onClickMessage != null) { onClickMessage(); }
+                    notification.gameObject.SetActive(false); 
+                }
             }
         };
 
@@ -66,7 +76,7 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
 
     private void Update() {
         float vel = 0.0f;
-        currentSize = Mathf.SmoothDamp(currentSize, size, ref vel, .05f);
+        currentSize = Mathf.SmoothDamp(currentSize, size, ref vel, .03f);
         rect.sizeDelta = new Vector2(rect.sizeDelta.x, currentSize);
         
 
@@ -85,8 +95,14 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
     
     public void OnPointerClick(PointerEventData data) {
         if (canExpand) {
-            if (!hasExpanded) { hasExpanded = true; size = maxSize; notification.gameObject.SetActive(false); }
-            else { hasExpanded = false; size = minSize; }
+            if (!hasExpanded) { 
+                hasExpanded = true; size = maxSize;
+
+                if (notification.gameObject.activeSelf) {
+                    if (onClickMessage != null) { onClickMessage(); }
+                    notification.gameObject.SetActive(false); 
+                }
+            } else { hasExpanded = false; size = minSize; }
         } else {
             hasExpanded = false; size = minSize;
         }
