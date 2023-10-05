@@ -27,7 +27,7 @@ N'oubliez pas de changer le numéro de l'indice et d'enlever "(Exemple)". C'est 
 
 -------------------------------------------------
 3.) Indice 3
-- Réduction de 50%
+- réduction de 50%
     > L’organisation maritime internationale vise à réduire de 50% les émissions de gaz à effet de serre d’ici 2050.
 
 -------------------------------------------------
@@ -69,7 +69,7 @@ N'oubliez pas de changer le numéro de l'indice et d'enlever "(Exemple)". C'est 
 -------------------------------------------------
 
 10.) Indice 10
-- Réduction énergétique touristique
+- réduction énergétique touristique
     > Illiens pour aller sur Belle île ou encore Sailcoop pour aller en Corse : des solutions existent déjà pour réduire son empreinte énergétique maritime.
 
 -------------------------------------------------

@@ -10,7 +10,7 @@ public class Lens : MonoBehaviour {
     [SerializeField] private LayerMask lensLayer;
 
     private Vector2 dragOffset;
-    private bool pickedUp;
+    private bool canPickUp, pickedUp;
 
     //Initialize Components
     private RectTransform rect;
@@ -21,10 +21,14 @@ public class Lens : MonoBehaviour {
         //Resize the lens
         if (lensSize <= 0) { lensSize = 200; }
         rect.sizeDelta = new Vector2(lensSize * 2, lensSize * 2);
+
+        //Subscribe to Events
+        ClueManager.onGameStart += () => canPickUp = true;
+        ClueManager.onNextPhase += () => canPickUp = false;
     }
 
     private void Update() {
-        ControlLens(); //Move the lens around when the player clicks on it
+        if (canPickUp) ControlLens(); //Move the lens around when the player clicks on it
     }
 
     private void ControlLens() {

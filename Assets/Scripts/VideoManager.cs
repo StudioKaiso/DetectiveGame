@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class VideoManager : MonoBehaviour {
+    //Initialize Variables
+    [SerializeField] private string videoName;
+
     //Initialize Components
     private CanvasGroup group;
+    private VideoPlayer video;
+    private RawImage output;
 
     //Initialize Events
     public static event System.Action onVideoEnd;
@@ -13,26 +19,26 @@ public class VideoManager : MonoBehaviour {
     private void OnDisable() => onVideoEnd = null;
 
     private void Start() {
+        output = GetComponentInChildren<RawImage>();
+        output.enabled = false;
+
+        video = GetComponent<VideoPlayer>();
+        video.url = System.IO.Path.Combine(Application.streamingAssetsPath, videoName);
+
         this.gameObject.SetActive(false);
         group = GetComponent<CanvasGroup>();
 
         //Subscribe to events
+        video.loopPointReached += EndVideo;
+
         ClueManager.onNextPhase += () => {
             this.gameObject.SetActive(true);
-            StartCoroutine(PlayVideo(.5f, "videoTest.mp4"));
+            StartCoroutine(PlayVideo(.5f));
         };
         
     }
 
-    private void StartVideo(string videoName) {
-        VideoPlayer video = GetComponent<VideoPlayer>();
-        video.url = System.IO.Path.Combine(Application.streamingAssetsPath, videoName);
-        video.Play();
-
-        Invoke("EndVideo", 7);
-    }
-
-    private IEnumerator PlayVideo(float targetTime, string videoName) {
+    private IEnumerator PlayVideo(float targetTime) {
         float currentTime = 0;
 
         while (currentTime < targetTime) {
@@ -42,7 +48,9 @@ public class VideoManager : MonoBehaviour {
         }
         
         group.alpha = 1;
-        StartVideo(videoName);
+        
+        output.enabled = true;
+        video.Play();
     }
 
     private IEnumerator FadeOut(float targetTime) {
@@ -59,8 +67,8 @@ public class VideoManager : MonoBehaviour {
         this.gameObject.SetActive(false);
     }
 
-    private void EndVideo() {
-        Debug.Log("End");
+    private void EndVideo(VideoPlayer video) {
+        output.enabled = false;
         StartCoroutine(FadeOut(.5f));
     }
 }
