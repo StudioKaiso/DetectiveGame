@@ -26,6 +26,6 @@ public class WordFinderBox : MonoBehaviour {
 
     private void TogglePosition(bool value = true) {
         if (value) { targetPos = Vector2.zero; }
-        else { targetPos = new Vector2(targetPos.x, -1000.0f); }
+        else { targetPos = new Vector2(targetPos.x, -750.0f); }
     }
 }

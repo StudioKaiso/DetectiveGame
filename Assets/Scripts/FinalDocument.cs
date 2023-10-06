@@ -14,7 +14,8 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
 
     //Initialize Components
     private TextAsset documentRef;
-    private TextMeshProUGUI document;
+    [SerializeField] private TextMeshProUGUI document;
+    private TextMeshProUGUI shownDoc;
     [SerializeField] private Canvas canvas;
 
     //Initialize Events
@@ -30,12 +31,16 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
         wordsWritten = new List<string>();
 
         //Load in the final document
-        document = GetComponent<TextMeshProUGUI>();
+        shownDoc = GetComponent<TextMeshProUGUI>();
         documentRef = Resources.Load<TextAsset>("TextFiles/FinalDocument");
-        GenerateDocument();
+        if (document != null) { GenerateDocument(); }
 
         //Subscribe to events
-        WordFinderButton.onValidateWord += (wordToValidate, wordIndex) => FillInWord(wordToValidate, wordIndex);
+        WordFinderButton.onValidateWord += (wordToValidate, wordIndex) => {
+            if (document != null) {
+                FillInWord(wordToValidate, wordIndex);    
+            }
+        };
         
     }
 
@@ -51,11 +56,13 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
             //Find the first paragraph
             if(documentRef.text.Split('\n')[i].StartsWith("TEXTE:")) {
                 document.text = documentRef.text.Split('\n')[i].Replace("TEXTE: ", string.Empty);
+                shownDoc.text = documentRef.text.Split('\n')[i].Replace("TEXTE: ", string.Empty);
             }
 
             //Find and add the remaining paragraphs, starting with an indent
             if(documentRef.text.Split('\n')[i].StartsWith("PARAGRAPHE:")) {
                 document.text += documentRef.text.Split('\n')[i].Replace("PARAGRAPHE: ", "\n\n");
+                shownDoc.text += documentRef.text.Split('\n')[i].Replace("PARAGRAPHE: ", "\n\n");
             }
         } 
         
@@ -72,6 +79,7 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
                 foreach (char character in wordsToFind[i]) { emptySpace += "_"; }
 
                 document.text = document.text.Replace("(" + wordsToFind[i] + ")", emptySpace);
+                shownDoc.text = document.text.Replace("(" + wordsToFind[i] + ")", emptySpace);
 
                 //Force update the document so the text info is available right away
                 document.ForceMeshUpdate();
@@ -116,14 +124,11 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
     }
 
     private void FillInWord(string word, int wordIndex) {
-        //Add the word in wordsWritten list
-         wordsWritten[wordIndex] = word; 
-
         //Insert the answer into the text at the position of the missing word
         document.text = document.text.Insert(
             charactersToFind[wordIndex][charactersToFind[wordIndex].Count - 1].index + 1, word
         );
-
+        
         //Remove the underscores
         document.text = document.text.Remove(
             charactersToFind[wordIndex][0].index, charactersToFind[wordIndex].Count
@@ -140,6 +145,7 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
         int charDifference = 0;
         
         //Get the word that was just written down on the paper
+        
         for (int i = startIndex; i < startIndex + word.Length; i++) {
             wordRef += document.textInfo.characterInfo[i].character;
         }
@@ -161,6 +167,7 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
         }
 
         //Apply the offset
+        document.ForceMeshUpdate();
         for (int i = wordIndex + 1; i < charactersToFind.Count; i++) {
             List<TMP_CharacterInfo> newCharList = new List<TMP_CharacterInfo>();
             
@@ -169,6 +176,21 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
             }
 
             charactersToFind[i] = newCharList;
+        }
+
+        //Add the word in wordsWritten list
+        wordsWritten[wordIndex] = word;
+
+        shownDoc.text = document.text;
+        for (int i = 0; i < charactersToFind.Count; i++) {
+            shownDoc.text = shownDoc.text.Insert(
+                charactersToFind[i][0].index + (i * 14), "<b><u>"
+            );
+
+            shownDoc.text = shownDoc.text.Insert(
+                charactersToFind[i][0].index + (i * 14) + "<b><u>".Length +
+                wordsWritten[i].Length, "</u></b>"
+            );
         }
     }
 

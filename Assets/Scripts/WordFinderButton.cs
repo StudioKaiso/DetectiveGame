@@ -21,13 +21,13 @@ public class WordFinderButton : MonoBehaviour {
 
     private void Start() {
         //Subscribe to events
-        FinalDocument.onClickWord += (wordIndex) => index = wordIndex;
-        inputField.onEndEdit.AddListener(EndEdit);
+        FinalDocument.onClickWord += (wordIndex) => {index = wordIndex; inputField.text = string.Empty; };
+        //inputField.onEndEdit.AddListener(EndEdit);
     }
 
     public void ValidateWord() {
         if (inputField != null) {
-            if (onValidateWord != null) { onValidateWord(word, index); }
+            if (onValidateWord != null && index != -1) { onValidateWord(inputField.text, index); }
             index = -1;
         }
     }
