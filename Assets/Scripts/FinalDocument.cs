@@ -16,7 +16,7 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
     private TextAsset documentRef;
     [SerializeField] private TextMeshProUGUI document;
     private TextMeshProUGUI shownDoc;
-    [SerializeField] private Canvas canvas;
+    [SerializeField] private RectTransform parent;
 
     //Initialize Events
     public delegate void WordAction(int wordIndex);
@@ -30,22 +30,46 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
         charactersToFind = new List<List<TMP_CharacterInfo>>();
         wordsWritten = new List<string>();
 
+        if (parent != null) {
+            parent.anchoredPosition = new Vector2(parent.anchoredPosition.x, -parent.sizeDelta.y);
+        }
+        
+
         //Load in the final document
         shownDoc = GetComponent<TextMeshProUGUI>();
         documentRef = Resources.Load<TextAsset>("TextFiles/FinalDocument");
         if (document != null) { GenerateDocument(); }
 
         //Subscribe to events
+        ClueManager.onRevealDocument += () => StartCoroutine(RevealDocument());
+
         WordFinderButton.onValidateWord += (wordToValidate, wordIndex) => {
             if (document != null) {
                 FillInWord(wordToValidate, wordIndex);    
             }
         };
-        
     }
 
-    private void GenerateDocument() {
-        for (int i = 0; i < documentRef.text.Split('\n').Length; i ++) {
+    private IEnumerator RevealDocument() {
+        Debug.Log("Moev");
+        float height = -parent.sizeDelta.y;
+        float timer = 0;
+
+        while (timer < 0.75) {
+            height = Mathf.Lerp(-parent.sizeDelta.y, 0, timer / 0.75f);
+            parent.anchoredPosition = new Vector2(parent.anchoredPosition.x, height);
+            timer += Time.deltaTime;
+
+            yield return null;
+        } 
+
+        height = 0;
+        parent.anchoredPosition = new Vector2(parent.anchoredPosition.x, height);
+    }
+
+    private void GenerateDocument() { 
+        string[] textArray = documentRef.text.Split('\n');
+        for (int i = 0; i < textArray.Length; i ++) {
             //Find the list of words to find
             if(documentRef.text.Split('\n')[i].StartsWith("LISTE:")) {
                 wordsToFind = new List<string>(
@@ -94,10 +118,8 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
 
                 //Remove every underscore that came from the previous words
                 if (i > 0) {
-                    foreach (string word in wordsToFind) {
-                        if (word != wordsToFind[i]) { 
-                            foreach (char character in word) { charList.RemoveAt(0); }    
-                        }
+                    for (int j = 0; j < i; j++) {
+                        foreach (char character in wordsToFind[j]) { charList.RemoveAt(0); }
                     }
                 }
 

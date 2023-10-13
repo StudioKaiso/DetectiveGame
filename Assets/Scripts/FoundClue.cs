@@ -9,6 +9,7 @@ public class FoundClue : MonoBehaviour, IPointerClickHandler {
     [Header("Variables")]
     [SerializeField] private string foundName;
     [SerializeField] private string foundMessage;
+    private bool gameStart;
 
     //Initialize Components
     private RectTransform rect;
@@ -29,6 +30,11 @@ public class FoundClue : MonoBehaviour, IPointerClickHandler {
             if (target == this) {
                 foundName = clueName;
                 foundMessage = clueMessage;
+
+                if (gameObject.name.Contains("Clue 0") && !gameStart) { 
+                    gameStart = true;
+                    if (onClickClue != null) { onClickClue(foundName, foundMessage); } 
+                }
             }
         };
     }

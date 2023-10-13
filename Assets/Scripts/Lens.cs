@@ -24,7 +24,9 @@ public class Lens : MonoBehaviour {
 
         //Subscribe to Events
         ClueManager.onGameStart += () => canPickUp = true;
+        ClueMessage.onClickTutorialClue += (target) => canPickUp = false;
         ClueManager.onNextPhase += () => canPickUp = false;
+        SideMenu.onToggleLens += (activate) => canPickUp = activate;
     }
 
     private void Update() {
@@ -34,7 +36,7 @@ public class Lens : MonoBehaviour {
     private void ControlLens() {
         if (Input.GetMouseButtonDown(0) && !pickedUp) {
             if (Vector2.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition),
-            transform.position) < lensSize / 100) {
+            transform.position) < lensSize / 120.0f) {
                 pickedUp = true;
 
                 dragOffset = new Vector2(

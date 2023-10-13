@@ -1,0 +1,31 @@
+fileFormatVersion: 2
+guid: 978e404e29bd3794797287d4305ffd69
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Tomkin
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e5e153cbeb19ef5429af08fd992527f6, type: 3}
+  - {fileID: 12800000, guid: 9573fd945fbe2494aafa5142437a4ce4, type: 3}
+  - {fileID: 12800000, guid: 52cc70c5f3a59464f9b2d9e5824c86db, type: 3}
+  - {fileID: 12800000, guid: 64b0f6830fd79d14eb79448b2d59532d, type: 3}
+  - {fileID: 12800000, guid: 2686c276735aabc45b5d21d57b5adea0, type: 3}
+  - {fileID: 12800000, guid: b6ea9d7d6b61f824683072b982106e23, type: 3}
+  - {fileID: 12800000, guid: c64e6ed02e2c22147b0ce0f117570dc1, type: 3}
+  - {fileID: 12800000, guid: 318986b7de7de734ab7d174768f64079, type: 3}
+  - {fileID: 12800000, guid: 50ffad9e283f90a4dbcb84349d74d41f, type: 3}
+  - {fileID: 12800000, guid: 23199ea680f4cd1479f1c7a1fd75a53a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

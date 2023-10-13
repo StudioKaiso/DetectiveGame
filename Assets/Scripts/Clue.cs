@@ -17,7 +17,6 @@ public class Clue : MonoBehaviour {
 
     [Header("Clue Components")] 
     [SerializeField] private GameObject foundClue;
-    [SerializeField] private Sprite notFoundSprite, foundSprite;
 
     //Initialize Events
     public static event System.Action onPlaced;
@@ -34,8 +33,6 @@ public class Clue : MonoBehaviour {
         rect = GetComponent<RectTransform>();
         clueImage = GetComponent<Image>();
         GetComponent<Collider2D>().enabled = false;
-
-        clueImage.sprite = notFoundSprite;
 
         //Subscribe to Events
         ClueManager.onCreateClue += (createdClue, id, name, message) => {
@@ -55,7 +52,9 @@ public class Clue : MonoBehaviour {
             }
         };
 
-        ClueManager.onGameStart += () => { GetComponent<Collider2D>().enabled = true; };
+        ClueManager.onGameStart += () => { 
+            GetComponent<Collider2D>().enabled = true; 
+        };
     }
 
     private void FinishPlacing() {

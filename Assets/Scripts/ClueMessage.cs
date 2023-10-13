@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using System;
+using Unity.VisualScripting;
 
 public class ClueMessage : MonoBehaviour, IPointerClickHandler {
     //Initialize Variables
@@ -12,26 +13,33 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
     [field:SerializeField] public float margin { get; private set; }
     private int nameLines, bodyLines;
     private float currentSize, size, minSize, maxSize;
-    private bool hasExpanded, canExpand;
+    private bool hasExpanded, canExpand, gameStart;
 
     private List<ClueMessage> messages;
 
     //Initialize Components
     public RectTransform rect { get; private set; }
     private TextMeshProUGUI messageText;
-    private Image notification;
+    private Image notification, checkBox;
+    [SerializeField] private Sprite checkedBox;
+    [SerializeField] private Color unreadColor, readColor;
 
     //Initialize Events
     public static event System.Action onClickMessage;
 
+    public delegate void TutorialAction(Transform target);
+    public static event TutorialAction onClickTutorialClue;
+
     private void OnDisable() {
         onClickMessage = null;
+        onClickTutorialClue = null;
     }
 
     private void Awake() {
         rect = GetComponent<RectTransform>();
         messageText = GetComponentInChildren<TextMeshProUGUI>();
         notification = GetComponentsInChildren<Image>()[1];
+        checkBox = GetComponentsInChildren<Image>()[2];
 
         notification.gameObject.SetActive(false);
         
@@ -51,19 +59,33 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
 
         ClueManager.onPlaceCluesDown += (points, clueList, messageList) => messages = messageList;
 
-        Clue.onClueFound += (foundClue, clueName, clueMessage) => {
+        FoundClue.onClickClue += (clueName, clueMessage) => {
             if (messageText.text == $"<b>{clueName}</b>\n\n{clueMessage}") {
                 canExpand = true;
-                notification.gameObject.SetActive(true);
+
+                if (!notification.gameObject.activeSelf) {
+                    notification.gameObject.SetActive(true);
+                    notification.color = unreadColor;
+                }
+
+                checkBox.sprite = checkedBox;
+
+                if (gameObject.name == "Message 0" && !gameStart) {
+                    if (onClickTutorialClue != null) { onClickTutorialClue(this.transform); }
+                    gameStart = true;
+                }
             }
         };
 
-        FoundClue.onClickClue += (clueName, clueMessage) => {
-            if (messageText.text == $"<b>{clueName}</b>\n\n{clueMessage}") {
+        CinematicManager.onSequenceEnd += (launcher) => {
+            if (launcher == this.transform) {
                 hasExpanded = true; size = maxSize;
-               if (notification.gameObject.activeSelf) {
-                    if (onClickMessage != null) { onClickMessage(); }
-                    notification.gameObject.SetActive(false); 
+
+                if (notification.gameObject.activeSelf) {
+                    if (notification.color == unreadColor) { 
+                        if (onClickMessage != null) { onClickMessage(); }
+                        notification.color = readColor;
+                    } 
                 }
             }
         };
@@ -91,6 +113,15 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
                 }
             }
         }
+
+        //Handle the notification image
+        if (notification.gameObject.activeSelf) {
+            if (hasExpanded) {
+                notification.GetComponent<RectTransform>().localScale = new Vector2(1, -1);
+            } else {
+                notification.GetComponent<RectTransform>().localScale = new Vector2(1, 1);
+            }
+        }
     }
     
     public void OnPointerClick(PointerEventData data) {
@@ -99,13 +130,14 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
                 hasExpanded = true; size = maxSize;
 
                 if (notification.gameObject.activeSelf) {
-                    if (onClickMessage != null) { onClickMessage(); }
-                    notification.gameObject.SetActive(false); 
+                    if (notification.color == unreadColor) { 
+                        if (onClickMessage != null) { onClickMessage(); }
+                        notification.color = readColor;
+                    } 
                 }
             } else { hasExpanded = false; size = minSize; }
         } else {
             hasExpanded = false; size = minSize;
         }
-        
     }
 }

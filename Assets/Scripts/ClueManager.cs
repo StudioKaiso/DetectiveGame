@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class ClueManager : MonoBehaviour {
     //Initialize Variables
     private int goodPositions, clickedClues;
+    private int phase;
 
     [Header("Clues")]
     [SerializeField] private GameObject clueRef;
@@ -17,14 +20,12 @@ public class ClueManager : MonoBehaviour {
 
     //Initialize Components
     private RectTransform map;
+    [Header("Cutscene Info")]
+    [SerializeField] private GameObject cutscene;
 
     //Initialize Events
-    public static event System.Action onFinishLoading;
-
-    public static event System.Action onGameStart;
-
-    public static event System.Action onFindAllClues;
-    public static event System.Action onNextPhase;
+    public static event System.Action onFinishLoading, onGameStart;
+    public static event System.Action onFindAllClues, onNextPhase, onRevealDocument;
 
     public delegate void PlaceClueAction(List<RectTransform> points, List<Clue> clueList, List<ClueMessage> messages);
     public static event PlaceClueAction onPlaceCluesDown;
@@ -40,6 +41,10 @@ public class ClueManager : MonoBehaviour {
         onGameStart = null;
         onPlaceCluesDown = null;
         onCreateClue = null;
+        onCreateMessage = null;
+        onFindAllClues = null;
+        onNextPhase = null;
+        onRevealDocument = null;
     }
 
     private void Start() {
@@ -50,7 +55,7 @@ public class ClueManager : MonoBehaviour {
         LoadClues();
 
         //Subscribe to events
-        Loading.onLoadingEnd += () => { Invoke("StartGame", 0.1f); };
+        Loading.onLoadingEnd += () => StartCutscene(this.transform, 13, 16);
 
         Clue.onPlaced += () => {
             goodPositions ++;
@@ -68,9 +73,35 @@ public class ClueManager : MonoBehaviour {
                 if (onFindAllClues != null) { onFindAllClues(); }
             }
         };
+
+        ClueMessage.onClickTutorialClue += (target) => StartCutscene(target.transform, 17);
+
+        CinematicManager.onSequenceEnd += (launcher) => {
+            //Load next scene
+            if (launcher == this.transform) {
+                if (phase == 0) { StartGame(); phase = 1; }
+                if (phase == 2) { phase = 3; if (onRevealDocument != null) { onRevealDocument(); } }
+            }
+        };
     }
 
     private void StartGame() { if (onGameStart != null) onGameStart(); }
+
+    private void StartCutscene(Transform target, int startScene, int endScene = -1, bool isTransparent = true) {
+        if (endScene < 0) { endScene = startScene; }
+
+        if (cutscene != null) {
+            GameObject newCutscene = Instantiate(cutscene, GameObject.FindGameObjectWithTag("Map").transform);
+
+            if (isTransparent) {
+                newCutscene.GetComponentsInChildren<Image>()[0].color = new Color(0,0,0,0);
+            }
+            
+            newCutscene.GetComponent<CinematicManager>().sceneLauncher = target.transform;
+            newCutscene.GetComponent<CinematicManager>().firstScene = startScene;
+            newCutscene.GetComponent<CinematicManager>().lastScene = endScene;
+        }
+    }
 
     private void LoadClues() {
         int addedClues = 0;
@@ -119,5 +150,7 @@ public class ClueManager : MonoBehaviour {
     
     public void GoToNextPhase() {
         if (onNextPhase != null) { onNextPhase(); }
+        phase = 2;
+        StartCutscene(this.transform, 19, 20, false);
     }
 }
