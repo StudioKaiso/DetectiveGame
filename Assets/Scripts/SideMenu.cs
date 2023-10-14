@@ -71,6 +71,11 @@ public class SideMenu : MonoBehaviour {
                 new Vector2(-endPhone.sizeDelta.x / 1.5f, endPhone.anchoredPosition.y), ref refVelocity, 0.045f
             );
         }
+
+        if (Input.GetKeyDown(KeyCode.K)) {
+            string path = $"screenshot {System.Guid.NewGuid().ToString()}.png";
+            ScreenCapture.CaptureScreenshot(path, 1);
+        }
     }
 
     public void ToggleMenu() {

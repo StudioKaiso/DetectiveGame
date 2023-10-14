@@ -151,6 +151,6 @@ public class ClueManager : MonoBehaviour {
     public void GoToNextPhase() {
         if (onNextPhase != null) { onNextPhase(); }
         phase = 2;
-        StartCutscene(this.transform, 19, 20, false);
+        StartCutscene(this.transform, 19, 32, false);
     }
 }

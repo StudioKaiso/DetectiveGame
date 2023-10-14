@@ -9,6 +9,7 @@ using System.Linq;
 
 public class FinalDocument : MonoBehaviour, IPointerClickHandler {
     //Initialize Variables
+    private int isWritten;
     [SerializeField] private List<string> wordsToFind, wordsWritten;
     private List<List<TMP_CharacterInfo>> charactersToFind;
 
@@ -17,21 +18,28 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
     [SerializeField] private TextMeshProUGUI document;
     private TextMeshProUGUI shownDoc;
     [SerializeField] private RectTransform parent;
+    [SerializeField] private Button finishButton;
 
     //Initialize Events
     public delegate void WordAction(int wordIndex);
     public static event WordAction onClickWord;
 
+    public delegate void SceneAction(string sceneName);
+    public static event SceneAction onSubmitDocument;
+
     private void OnDisable() {
         onClickWord = null;
+        onSubmitDocument = null;
     }
 
     private void Start() {
         charactersToFind = new List<List<TMP_CharacterInfo>>();
         wordsWritten = new List<string>();
 
+        if (finishButton != null) { finishButton.interactable = false; }
+
         if (parent != null) {
-            parent.anchoredPosition = new Vector2(parent.anchoredPosition.x, -parent.sizeDelta.y);
+            parent.anchoredPosition = new Vector2(parent.anchoredPosition.x, -(parent.sizeDelta.y + 150));
         }
         
 
@@ -52,11 +60,11 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
 
     private IEnumerator RevealDocument() {
         Debug.Log("Moev");
-        float height = -parent.sizeDelta.y;
+        float height = -(parent.sizeDelta.y + 150);
         float timer = 0;
 
         while (timer < 0.75) {
-            height = Mathf.Lerp(-parent.sizeDelta.y, 0, timer / 0.75f);
+            height = Mathf.Lerp(-(parent.sizeDelta.y + 150), 0, timer / 0.75f);
             parent.anchoredPosition = new Vector2(parent.anchoredPosition.x, height);
             timer += Time.deltaTime;
 
@@ -100,7 +108,7 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
             //Replace the word in parentheses by underscores
             if (document.text.ToLower().Contains("(" + wordsToFind[i] + ")")) {
                 string emptySpace = "";
-                foreach (char character in wordsToFind[i]) { emptySpace += "_"; }
+                for (int j = 0; j < 5; j++) { emptySpace += "_"; }
 
                 document.text = document.text.Replace("(" + wordsToFind[i] + ")", emptySpace);
                 shownDoc.text = document.text.Replace("(" + wordsToFind[i] + ")", emptySpace);
@@ -119,7 +127,7 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
                 //Remove every underscore that came from the previous words
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
-                        foreach (char character in wordsToFind[j]) { charList.RemoveAt(0); }
+                        for (int k = 0; k < 5; k++) { charList.RemoveAt(0); }
                     }
                 }
 
@@ -127,22 +135,6 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
                 if (charList.Count > 0) { charactersToFind.Add(charList); }
             }
         }
-    }
-
-    //Find the word that is closest to the position
-    private int FindCorrespondingWord(Vector2 pos) {
-        int result = -1;
-
-        for (int i = 0; i < charactersToFind.Count; i++) {
-            foreach (TMP_CharacterInfo character in charactersToFind[i]) {
-                if (pos.x > character.bottomLeft.x - 15.0f && pos.x < character.bottomRight.x + 15.0f
-                &&  pos.y > character.bottomLeft.y - 20.0f && pos.y < character.bottomLeft.y + 50.0f) {
-                    result = i;
-                }
-            }
-        }
-
-        return result;
     }
 
     private void FillInWord(string word, int wordIndex) {
@@ -201,8 +193,10 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
         }
 
         //Add the word in wordsWritten list
+        if (wordsWritten[wordIndex] == "") { isWritten ++; }
         wordsWritten[wordIndex] = word;
 
+        //Update the shown document with the answers in bold and underlined
         shownDoc.text = document.text;
         for (int i = 0; i < charactersToFind.Count; i++) {
             shownDoc.text = shownDoc.text.Insert(
@@ -214,6 +208,48 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
                 wordsWritten[i].Length, "</u></b>"
             );
         }
+
+        //Check if the player can submit the document
+        if (isWritten >= 6) { 
+            if (finishButton != null) { finishButton.interactable = true; }
+        }
+    }
+
+    public void SubmitDocument() {
+        int goodAnswers = 0;
+
+        //Create the score object
+        if (GameObject.FindObjectsOfType<Score>().Length == 0) {
+            Score score = Instantiate(new GameObject(), transform.position, transform.rotation).AddComponent<Score>();
+
+            Score.wordsToFind = wordsToFind;
+            Score.wordsWritten = wordsWritten;
+            Score.writtenDoc = shownDoc.text;    
+        }
+
+        //Check if the player had 4 or more good answers
+        for (int i = 0; i < wordsToFind.Count; i++) {
+            if (wordsWritten[i] == wordsToFind[i]) { goodAnswers ++; }
+        }
+
+        if (goodAnswers >= 4) { if (onSubmitDocument != null) { onSubmitDocument("WinEndScene"); } }
+        else { if (onSubmitDocument != null) { onSubmitDocument("FailEndScene"); } }
+    }
+
+    //Find the word that is closest to the position
+    private int FindCorrespondingWord(Vector2 pos) {
+        int result = -1;
+
+        for (int i = 0; i < charactersToFind.Count; i++) {
+            foreach (TMP_CharacterInfo character in charactersToFind[i]) {
+                if (pos.x > character.bottomLeft.x - 15.0f && pos.x < character.bottomRight.x + 15.0f
+                &&  pos.y > character.bottomLeft.y - 20.0f && pos.y < character.bottomLeft.y + 50.0f) {
+                    result = i;
+                }
+            }
+        }
+
+        return result;
     }
 
     public void OnPointerClick(PointerEventData data) {

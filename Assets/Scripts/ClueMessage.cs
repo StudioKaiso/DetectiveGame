@@ -20,7 +20,7 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
     //Initialize Components
     public RectTransform rect { get; private set; }
     private TextMeshProUGUI messageText;
-    private Image notification, checkBox;
+    private Image notification, checkBox, backImage;
     [SerializeField] private Sprite checkedBox;
     [SerializeField] private Color unreadColor, readColor;
 
@@ -38,8 +38,9 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
     private void Awake() {
         rect = GetComponent<RectTransform>();
         messageText = GetComponentInChildren<TextMeshProUGUI>();
-        notification = GetComponentsInChildren<Image>()[1];
-        checkBox = GetComponentsInChildren<Image>()[2];
+        backImage = GetComponentsInChildren<Image>()[1];
+        notification = GetComponentsInChildren<Image>()[2];
+        checkBox = GetComponentsInChildren<Image>()[3];
 
         notification.gameObject.SetActive(false);
         
@@ -100,7 +101,6 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
         float vel = 0.0f;
         currentSize = Mathf.SmoothDamp(currentSize, size, ref vel, .03f);
         rect.sizeDelta = new Vector2(rect.sizeDelta.x, currentSize);
-        
 
         //Place the message on the right spot, underneath its predecessor according to its size
         if (messages != null) {
@@ -116,12 +116,13 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
 
         //Handle the notification image
         if (notification.gameObject.activeSelf) {
-            if (hasExpanded) {
-                notification.GetComponent<RectTransform>().localScale = new Vector2(1, -1);
-            } else {
-                notification.GetComponent<RectTransform>().localScale = new Vector2(1, 1);
-            }
+            if (hasExpanded) { notification.GetComponent<RectTransform>().localScale = new Vector2(1, -1); }
+            else { notification.GetComponent<RectTransform>().localScale = new Vector2(1, 1); }
         }
+
+        //Handle back Image
+        if (currentSize <= minSize + 10) { backImage.gameObject.SetActive(false); }
+        else {backImage.gameObject.SetActive(true); }
     }
     
     public void OnPointerClick(PointerEventData data) {

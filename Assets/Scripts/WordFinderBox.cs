@@ -16,6 +16,7 @@ public class WordFinderBox : MonoBehaviour {
         //Subscribe to events
         FinalDocument.onClickWord += (wordIndex) => TogglePosition();
         WordFinderButton.onValidateWord += (wordToValidate, wordIndex) => TogglePosition(false);
+        WordFinderButton.onCancelValidation += () => TogglePosition(false);
         
     }
 
