@@ -200,12 +200,12 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
         shownDoc.text = document.text;
         for (int i = 0; i < charactersToFind.Count; i++) {
             shownDoc.text = shownDoc.text.Insert(
-                charactersToFind[i][0].index + (i * 14), "<b><u>"
+                charactersToFind[i][0].index + (i * 47), "<font=\"Tomkin-Medium SDF\"><i><u>"
             );
 
             shownDoc.text = shownDoc.text.Insert(
-                charactersToFind[i][0].index + (i * 14) + "<b><u>".Length +
-                wordsWritten[i].Length, "</u></b>"
+                charactersToFind[i][0].index + (i * 47) + "<font=\"Tomkin-Medium SDF\"><i><u>".Length +
+                wordsWritten[i].Length, "</u></i></font>"
             );
         }
 
@@ -243,7 +243,7 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
         for (int i = 0; i < charactersToFind.Count; i++) {
             foreach (TMP_CharacterInfo character in charactersToFind[i]) {
                 if (pos.x > character.bottomLeft.x - 15.0f && pos.x < character.bottomRight.x + 15.0f
-                &&  pos.y > character.bottomLeft.y - 20.0f && pos.y < character.bottomLeft.y + 50.0f) {
+                &&  pos.y > character.bottomLeft.y - 15.0f && pos.y < character.bottomLeft.y + 40.0f) {
                     result = i;
                 }
             }

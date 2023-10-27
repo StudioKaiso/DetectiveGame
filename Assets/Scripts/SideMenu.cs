@@ -72,9 +72,8 @@ public class SideMenu : MonoBehaviour {
             );
         }
 
-        if (Input.GetKeyDown(KeyCode.K)) {
-            string path = $"screenshot {System.Guid.NewGuid().ToString()}.png";
-            ScreenCapture.CaptureScreenshot(path, 1);
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
         }
     }
 

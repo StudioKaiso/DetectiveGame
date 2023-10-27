@@ -13,4 +13,10 @@ public class Score : MonoBehaviour {
         if (GameObject.FindObjectsOfType<Score>().Length > 1) { Destroy(this.gameObject); }
         else { DontDestroyOnLoad(this.gameObject); }
     }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
+        }
+    }
 }

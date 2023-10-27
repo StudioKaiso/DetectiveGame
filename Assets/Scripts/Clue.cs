@@ -17,6 +17,7 @@ public class Clue : MonoBehaviour {
 
     [Header("Clue Components")] 
     [SerializeField] private GameObject foundClue;
+    private Animator anim;
 
     //Initialize Events
     public static event System.Action onPlaced;
@@ -32,6 +33,8 @@ public class Clue : MonoBehaviour {
     private void Awake() {
         rect = GetComponent<RectTransform>();
         clueImage = GetComponent<Image>();
+        anim = GetComponent<Animator>();
+
         GetComponent<Collider2D>().enabled = false;
 
         //Subscribe to Events
@@ -49,6 +52,12 @@ public class Clue : MonoBehaviour {
                     rect.anchoredPosition = points[i].anchoredPosition;
                     Invoke("FinishPlacing", 0.05f);
                 }
+            }
+        };
+
+        FoundClue.onClickClue += (foundName, foundMessage) => {
+            if (clueName == foundName && clueMessage == foundMessage) {
+                anim.Play("clue_idle");
             }
         };
 

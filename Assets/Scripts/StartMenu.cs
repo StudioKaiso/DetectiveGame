@@ -33,6 +33,12 @@ public class StartMenu : MonoBehaviour, IPointerClickHandler {
         };
     }
 
+    public void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
+        }
+    }
+
     public void OnPointerClick(PointerEventData data) {
         //Load Cinematic
         if (cutscene != null) {

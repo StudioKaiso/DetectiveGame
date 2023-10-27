@@ -1059,7 +1059,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.6666667
+  - time: 2.8833334
     functionName: GoNext
     data: 
     objectReferenceParameter: {fileID: 0}
