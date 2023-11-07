@@ -39,7 +39,7 @@ N'oubliez pas de changer le numéro de l'indice et d'enlever "(Exemple)". C'est 
 -------------------------------------------------
 
 6.) Indice 6
-- 6 entreprises du 11
+- 6 entreprises sur 11
     > 6 des 11 entreprises françaises innovantes en matière de transport à propulsion vélique sont à Nantes et Saint Nazaire : Airseas, Wisamo, Chantiers de l’Atlantique, CWS, Neoline, Farwind
 
 -------------------------------------------------

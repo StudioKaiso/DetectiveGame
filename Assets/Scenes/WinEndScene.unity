@@ -768,6 +768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 302757924}
   - component: {fileID: 302757926}
+  - component: {fileID: 302757927}
   - component: {fileID: 302757925}
   m_Layer: 0
   m_Name: Text 1
@@ -793,8 +794,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -294.5, y: -33}
-  m_SizeDelta: {x: 933.37, y: 59.13}
+  m_AnchoredPosition: {x: -495.65, y: -33}
+  m_SizeDelta: {x: 531.07, y: 59.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &302757925
 MonoBehaviour:
@@ -849,7 +850,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 4
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -893,6 +894,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302757923}
   m_CullTransparentMesh: 1
+--- !u!114 &302757927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302757923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99aed9a4739934745979fa3ce1b8f752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webLink: 'https://www.windforgoods.fr/ '
 --- !u!1 &319683278
 GameObject:
   m_ObjectHideFlags: 0
@@ -3518,6 +3532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1299534750}
   - component: {fileID: 1299534752}
+  - component: {fileID: 1299534753}
   - component: {fileID: 1299534751}
   m_Layer: 0
   m_Name: Text 3
@@ -3543,8 +3558,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -294.5, y: -298}
-  m_SizeDelta: {x: 933.37, y: 59.13}
+  m_AnchoredPosition: {x: -479.51, y: -298}
+  m_SizeDelta: {x: 563.34, y: 59.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1299534751
 MonoBehaviour:
@@ -3599,7 +3614,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 4
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -3643,6 +3658,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299534749}
   m_CullTransparentMesh: 1
+--- !u!114 &1299534753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299534749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99aed9a4739934745979fa3ce1b8f752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webLink: 
 --- !u!1 &1308339594
 GameObject:
   m_ObjectHideFlags: 0
@@ -4265,6 +4293,7 @@ RectTransform:
   - {fileID: 2073910901}
   - {fileID: 1299534750}
   - {fileID: 1011325218}
+  - {fileID: 2014950847}
   m_Father: {fileID: 1932418402}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5622,6 +5651,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955144686}
   m_CullTransparentMesh: 1
+--- !u!1 &2014950846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2014950847}
+  - component: {fileID: 2014950849}
+  - component: {fileID: 2014950848}
+  m_Layer: 0
+  m_Name: LogoNSD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2014950847
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014950846}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1585452985}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -331.91, y: -441.4}
+  m_SizeDelta: {x: 181.43, y: 109.53}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2014950848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014950846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: cb617a1a0a5017b45b4d07b2d3796548, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2014950849
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014950846}
+  m_CullTransparentMesh: 1
 --- !u!1 &2073910900
 GameObject:
   m_ObjectHideFlags: 0
@@ -5632,6 +5737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2073910901}
   - component: {fileID: 2073910903}
+  - component: {fileID: 2073910904}
   - component: {fileID: 2073910902}
   m_Layer: 0
   m_Name: Text 2
@@ -5713,7 +5819,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 4
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -5757,6 +5863,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073910900}
   m_CullTransparentMesh: 1
+--- !u!114 &2073910904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073910900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99aed9a4739934745979fa3ce1b8f752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webLink: 'https://invest.nantes-saintnazaire.fr/les-filieres-d-excellence/transport-a-la-voile '
 --- !u!1 &2099462287
 GameObject:
   m_ObjectHideFlags: 0
