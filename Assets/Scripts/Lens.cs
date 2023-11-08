@@ -7,10 +7,9 @@ using UnityEngine.UI;
 public class Lens : MonoBehaviour {
     //Initialize Variables
     [SerializeField] private int lensSize = 200;
-    [SerializeField] private LayerMask lensLayer;
 
     private Vector2 dragOffset;
-    private bool canPickUp, pickedUp;
+    [SerializeField] private bool canPickUp, pickedUp;
 
     //Initialize Components
     private RectTransform rect;
@@ -35,8 +34,9 @@ public class Lens : MonoBehaviour {
 
     private void ControlLens() {
         if (Input.GetMouseButtonDown(0) && !pickedUp) {
-            if (Vector2.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition),
-            transform.position) < lensSize / 120.0f) {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
+            if (Vector2.Distance(mousePos, transform.position) < lensSize / 120.0f) {
                 pickedUp = true;
 
                 dragOffset = new Vector2(

@@ -65,7 +65,11 @@ public class ClueManager : MonoBehaviour {
             }
         };
 
-        ClueMessage.onClickMessage += () => {
+        ClueMessage.onClickMessage += (target) => {
+            if (clickedClues == 0) { 
+                StartCutscene(target.transform, 18);
+            }
+
             clickedClues ++;
             Debug.Log(clickedClues);
 
@@ -151,6 +155,6 @@ public class ClueManager : MonoBehaviour {
     public void GoToNextPhase() {
         if (onNextPhase != null) { onNextPhase(); }
         phase = 2;
-        StartCutscene(this.transform, 19, 32, false);
+        StartCutscene(this.transform, 20, 32, false);
     }
 }

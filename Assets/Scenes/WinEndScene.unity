@@ -3308,7 +3308,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 43b2f53e923362d4db2b14d2f5ffe0f2, type: 3}
 --- !u!224 &1130229567 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 842394927581831399, guid: 43b2f53e923362d4db2b14d2f5ffe0f2, type: 3}
+  m_CorrespondingSourceObject: {fileID: 9021266366501317599, guid: 43b2f53e923362d4db2b14d2f5ffe0f2, type: 3}
   m_PrefabInstance: {fileID: 1130229566}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1277235359
@@ -3670,7 +3670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99aed9a4739934745979fa3ce1b8f752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  webLink: 
+  webLink: 'https://www.windforgoods.fr/storage/677/202306_Wind-For-Goods_La-Synth%C3%A8se.pdf '
 --- !u!1 &1308339594
 GameObject:
   m_ObjectHideFlags: 0

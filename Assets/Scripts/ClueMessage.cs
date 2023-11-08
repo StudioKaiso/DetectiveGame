@@ -25,10 +25,9 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
     [SerializeField] private Color unreadColor, readColor;
 
     //Initialize Events
-    public static event System.Action onClickMessage;
-
-    public delegate void TutorialAction(Transform target);
-    public static event TutorialAction onClickTutorialClue;
+    public delegate void ClueMessageAction(Transform target);
+    public static event ClueMessageAction onClickMessage, onClickTutorialClue;
+    public static event System.Action onCloseMenu;
 
     private void OnDisable() {
         onClickMessage = null;
@@ -42,6 +41,7 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
         notification = GetComponentsInChildren<Image>()[2];
         checkBox = GetComponentsInChildren<Image>()[3];
 
+        checkBox.color = unreadColor;
         notification.gameObject.SetActive(false);
         
         ClueManager.onCreateMessage += (createdMessage, id, clueName, clueMessage) => {
@@ -80,13 +80,17 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
 
         CinematicManager.onSequenceEnd += (launcher) => {
             if (launcher == this.transform) {
-                hasExpanded = true; size = maxSize;
-
-                if (notification.gameObject.activeSelf) {
-                    if (notification.color == unreadColor) { 
-                        if (onClickMessage != null) { onClickMessage(); }
-                        notification.color = readColor;
-                    } 
+                if (hasExpanded == false) {
+                    hasExpanded = true; size = maxSize;
+                    if (notification.gameObject.activeSelf) {
+                        if (notification.color == unreadColor) { 
+                            if (onClickMessage != null) { onClickMessage(this.transform); }
+                            checkBox.color = readColor;
+                            notification.color = readColor;
+                        } 
+                    }
+                } else {
+                    if (onCloseMenu != null) { onCloseMenu(); }
                 }
             }
         };
@@ -132,7 +136,8 @@ public class ClueMessage : MonoBehaviour, IPointerClickHandler {
 
                 if (notification.gameObject.activeSelf) {
                     if (notification.color == unreadColor) { 
-                        if (onClickMessage != null) { onClickMessage(); }
+                        if (onClickMessage != null) { onClickMessage(this.transform); }
+                        checkBox.color = readColor;
                         notification.color = readColor;
                     } 
                 }

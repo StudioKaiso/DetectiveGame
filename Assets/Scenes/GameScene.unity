@@ -1003,7 +1003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   margin: 140
-  cutscene: {fileID: 1726948694365080280, guid: 43b2f53e923362d4db2b14d2f5ffe0f2, type: 3}
+  cutscene: {fileID: 4942473237804513090, guid: 43b2f53e923362d4db2b14d2f5ffe0f2, type: 3}
   endPhone: {fileID: 553459223}
 --- !u!1 &519420028
 GameObject:
@@ -1115,7 +1115,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 119
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3087,12 +3087,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -3294,9 +3294,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lensSize: 200
-  lensLayer:
-    serializedVersion: 2
-    m_Bits: 8
+  canPickUp: 0
+  pickedUp: 0
 --- !u!50 &1447305616
 Rigidbody2D:
   serializedVersion: 4
@@ -3780,7 +3779,7 @@ MonoBehaviour:
   - {fileID: 169177233}
   - {fileID: 375366477}
   cluesFile: {fileID: 0}
-  cutscene: {fileID: 1726948694365080280, guid: 43b2f53e923362d4db2b14d2f5ffe0f2, type: 3}
+  cutscene: {fileID: 4942473237804513090, guid: 43b2f53e923362d4db2b14d2f5ffe0f2, type: 3}
 --- !u!225 &1582840242
 CanvasGroup:
   m_ObjectHideFlags: 0

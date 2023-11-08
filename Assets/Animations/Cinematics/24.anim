@@ -489,7 +489,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 6ab5b102e74a4be469c7889f75465a29, type: 3}
+      value: {fileID: 21300000, guid: 06dc6b6e2c316cc4bae569fa57d5e386, type: 3}
     attribute: m_Sprite
     path: TextBubble
     classID: 114
@@ -731,7 +731,7 @@ AnimationClip:
     - {fileID: 21300000, guid: 29b5077e7752250498d4607a995c8b60, type: 3}
     - {fileID: 21300000, guid: d18a9e728ba3dc7499981d09e6040fd9, type: 3}
     - {fileID: 0}
-    - {fileID: 21300000, guid: 6ab5b102e74a4be469c7889f75465a29, type: 3}
+    - {fileID: 21300000, guid: 06dc6b6e2c316cc4bae569fa57d5e386, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

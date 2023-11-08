@@ -36,6 +36,8 @@ public class SideMenu : MonoBehaviour {
             gameStart = false; Debug.Log("gamestart false");
         };
 
+        ClueMessage.onCloseMenu += () => ToggleMenu();
+
         CinematicManager.onSequenceEnd += (launcher) => {
             if (launcher == this.transform) {
                 if (onToggleLens != null) { onToggleLens(true); }
@@ -79,19 +81,17 @@ public class SideMenu : MonoBehaviour {
 
     public void ToggleMenu() {
         if (gameStart) {
-            if (!doneTutorial && isOpened) {
+            if (!doneTutorial) {
                 isOpened = false;
                 doneTutorial = true;
 
                 if (cutscene != null) {
-                    if (cutscene != null) {
-                        GameObject newCutscene = Instantiate(cutscene, GameObject.FindGameObjectWithTag("Map").transform);
-                        newCutscene.GetComponentsInChildren<Image>()[0].color = new Color(0,0,0,0);
+                    GameObject newCutscene = Instantiate(cutscene, GameObject.FindGameObjectWithTag("Map").transform);
+                    newCutscene.GetComponentsInChildren<Image>()[0].color = new Color(0,0,0,0);
 
-                        newCutscene.GetComponent<CinematicManager>().sceneLauncher = this.transform;
-                        newCutscene.GetComponent<CinematicManager>().firstScene = 18;
-                        newCutscene.GetComponent<CinematicManager>().lastScene = 18;
-                    }
+                    newCutscene.GetComponent<CinematicManager>().sceneLauncher = this.transform;
+                    newCutscene.GetComponent<CinematicManager>().firstScene = 19;
+                    newCutscene.GetComponent<CinematicManager>().lastScene = 19;
                 }
             } else {
                 isOpened = !isOpened;

@@ -176,7 +176,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 8
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 1
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ff708295497c0408858818d43534d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineHeight: 35
+  lineHeight: 40
   boxHeight: 80
   <margin>k__BackingField: 20
   checkedBox: {fileID: 21300000, guid: 671d787da0340af4c9a315c6f123533d, type: 3}

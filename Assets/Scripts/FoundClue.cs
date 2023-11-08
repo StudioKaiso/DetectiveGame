@@ -14,6 +14,7 @@ public class FoundClue : MonoBehaviour, IPointerClickHandler {
     //Initialize Components
     private RectTransform rect;
     private Animator anim;
+    private ParticleSystem particles;
 
     //Initialize Events
     public delegate void FoundClueAction(string clueName, string clueMessage);
@@ -26,6 +27,7 @@ public class FoundClue : MonoBehaviour, IPointerClickHandler {
     private void Awake() {
         rect = GetComponent<RectTransform>();
         anim = GetComponent<Animator>();
+        particles = GetComponentInChildren<ParticleSystem>();
 
         //Subscribe to events
         Clue.onClueFound += (target, clueName, clueMessage) => {
@@ -37,6 +39,7 @@ public class FoundClue : MonoBehaviour, IPointerClickHandler {
                     gameStart = true;
                     if (onClickClue != null) { onClickClue(foundName, foundMessage); } 
                     anim.Play("clue_idle");
+                    if (particles != null) { particles.Play(); }
                 }
             }
         };
@@ -45,5 +48,6 @@ public class FoundClue : MonoBehaviour, IPointerClickHandler {
     public void OnPointerClick(PointerEventData data) {
         if (onClickClue != null) { onClickClue(foundName, foundMessage); }
         anim.Play("clue_idle");
+        if (particles != null) { particles.Play(); }
     }
 }
