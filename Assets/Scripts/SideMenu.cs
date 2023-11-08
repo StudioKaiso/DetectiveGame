@@ -46,6 +46,10 @@ public class SideMenu : MonoBehaviour {
     }
 
     private void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            ScreenCapture.CaptureScreenshot("Screen");
+        }
+
         if (isOpened) {
             if (menuButton != null) { menuButton.localScale = new Vector2(-1, 1); }
 

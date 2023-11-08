@@ -200,12 +200,12 @@ public class FinalDocument : MonoBehaviour, IPointerClickHandler {
         shownDoc.text = document.text;
         for (int i = 0; i < charactersToFind.Count; i++) {
             shownDoc.text = shownDoc.text.Insert(
-                charactersToFind[i][0].index + (i * 47), "<font=\"Tomkin-Medium SDF\"><i><u>"
+                charactersToFind[i][0].index + (i * 38), "<font=\"Tomkin-Bold SDF\"><u>"
             );
 
             shownDoc.text = shownDoc.text.Insert(
-                charactersToFind[i][0].index + (i * 47) + "<font=\"Tomkin-Medium SDF\"><i><u>".Length +
-                wordsWritten[i].Length, "</u></i></font>"
+                charactersToFind[i][0].index + (i * 38) + "<font=\"Tomkin-Bold SDF\"><u>".Length +
+                wordsWritten[i].Length, "</u></font>"
             );
         }
 

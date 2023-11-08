@@ -52,7 +52,7 @@ N'oubliez pas de changer le numéro de l'indice et d'enlever "(Exemple)". C'est 
 
 8.) Indice 8
 - Une filière en accélération
-    > Après des années de prototypage et de recherche et développement, les acteurs en viennent désormais à équiper concrètement des bateaux dans le monde entier. <br>« Il aura fallu douze ans pour installer vingt-quatre ailes depuis la première embarquée en 2010, mais seulement un an pour vingt-quatre de plus. C’est dire l’accélération » Gavin Allwright, secrétaire général d’International Windship Association
+    > Après des années de prototypage et de recherche et développement, les acteurs en viennent désormais à équiper concrètement des bateaux dans le monde entier. <br><br>« Il aura fallu douze ans pour installer vingt-quatre ailes depuis la première embarquée en 2010, mais seulement un an pour vingt-quatre de plus. C’est dire l’accélération » Gavin Allwright, secrétaire général d’International Windship Association
 
 -------------------------------------------------
 

@@ -14,13 +14,13 @@ public class EndscreenText : MonoBehaviour {
             for (int i = 0; i < Score.wordsWritten.Count; i++) {
                 if (Score.wordsWritten[i] == Score.wordsToFind[i]) {
                     endDoc.text = endDoc.text.Replace(
-                        $"<b><u>{Score.wordsWritten[i]}</u></b>",
-                        $"<color=#287F14><b><u>{Score.wordsWritten[i]}</u></b></color>"
+                        $"<font=\"Tomkin-Bold SDF\"><u>{Score.wordsWritten[i]}</u></font>",
+                        $"<color=#287F14><font=\"Tomkin-Bold SDF\"><u>{Score.wordsWritten[i]}</u></font></color>"
                     );
                 } else {
                     endDoc.text = endDoc.text.Replace(
-                        $"<b><u>{Score.wordsWritten[i]}</u></b>",
-                        $"<color=#680300><b><u>{Score.wordsWritten[i]}</u></b></color>"
+                        $"<font=\"Tomkin-Bold SDF\"><u>{Score.wordsWritten[i]}</u></font>",
+                        $"<color=#680300><font=\"Tomkin-Bold SDF\"><u>{Score.wordsWritten[i]}</u></font></color>"
                     );
                 }
             }
